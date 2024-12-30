@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Information Board</title>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #000097;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar a {
+            padding: 14px 20px;
+            display: block;
+            color: lightslategrey;
+            text-align: center;
+            text-decoration: none;
+            border-bottom: 3px solid transparent; /* Default: no underline */
+        }
+
+        .navbar a.active {
+            border-bottom: 4px solid white; /* White underline for active item */
+            color: white;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            display: none;
+            padding: 20px;
+        }
+        .active {
+            display: block;
+        }
+        table {
+            width: 75%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            font-weight: bold;   /* Makes the text bold */
+            font-style: italic;  /* Makes the text italic */
+        }
+        .submitted {
+            text-align: right;
+            margin-top: 10px;
+            margin-right: 12.5%;
+        }
+        .timer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            font-size: 24px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="#" class="tab-link" onclick="showContent('content1')">ENR_E</a>
+        <a href="#" class="tab-link" onclick="showContent('content2')">ENR_S</a>
+        <a href="#" class="tab-link" onclick="showContent('content3')">ENR_W</a>
+        <a href="#" class="tab-link" onclick="showContent('content4')">S_ACT</a>
+        <a href="#" class="tab-link" onclick="showContent('content5')">SR LD IN</a>
+        <a href="#" class="tab-link" onclick="showContent('content6')">TM BK (APP)</a>
+    </div>
+
+    <div class="container">
+        <h1>WIB</h1>
+        <label for="time-input">Enter Current Time (24-hour format, e.g., 0920):</label>
+        <input type="text" id="time-input" placeholder="HHMM" pattern="\d{4}">
+        <button id="start-button">Start/Update Timer</button>
+        <div class="timer" id="timer"></div>
+
+        <script>
+          let interval;
+          let totalSeconds = 0;
+
+          document.getElementById('time-input').addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+              startTimer();
+            }
+          });
+
+          document.getElementById('start-button').addEventListener('click', startTimer);
+
+          function startTimer() {
+            const timeInput = document.getElementById('time-input');
+            const timerElement = document.getElementById('timer');
+
+            // Get the user's input and validate it
+            const inputTime = timeInput.value.trim();
+            if (inputTime.length === 0) {
+              // If the user didn't enter a time, use a random time as the default
+              const randomHours = Math.floor(Math.random() * 24);
+              const randomMinutes = Math.floor(Math.random() * 60);
+              totalSeconds = (randomHours * 3600) + (randomMinutes * 60);
+            } else if (inputTime.length !== 4 || isNaN(inputTime)) {
+              alert('Please enter a valid 4-digit time in 24-hour format (e.g., 0920).');
+              return;
+            } else {
+              // Convert the input time to seconds
+              const hours = parseInt(inputTime.slice(0, 2));
+              const minutes = parseInt(inputTime.slice(2));
+              totalSeconds = hours * 3600 + minutes * 60;
+            }
+
+            // Clear the previous interval and start a new one
+            clearInterval(interval);
+            interval = setInterval(() => {
+              totalSeconds++;
+              const currentTime = new Date(totalSeconds * 1000);
+              const timeString = currentTime.toISOString().substr(11, 8);
+              timerElement.textContent = timeString;
+            }, 1000);
+          }
+        </script>
+    </div>
+
+    <div id="content1" class="content">
+        <table>
+            <tr>
+                <th>Fix</th>
+                <th>Restriction</th>
+                <th>FLC (min)/ CFS</th>
+                <th>Validity</th>
+                <th>Imposed by/ at/ initial</th>
+                <th>Reason</th>
+            </tr>
+            <tr><td><b>東面</b></td><td>暫時冇野</td><td>得閑再整</td><td></td><td></td><td></td></tr>
+
+        </table>
+        <div class="submitted">Submitted by EA at 14:02:01, Aug 26, 2024</div>
+    </div>
+
+    <div id="content2" class="content">
+        <table>
+            <tr>
+                <th>Fix</th>
+                <th>Restriction</th>
+                <th>FLC (min)/ CFS</th>
+                <th>Validity</th>
+                <th>Imposed by/ at/ initial</th>
+                <th>Reason</th>
+            </tr>
+            <tr><td><b>南面</b></td><td></td><td></td><td></td><td>暫時冇野</td><td>得閑再整</td></tr>
+
+        </table>
+        <div class="submitted">Submitted by SA at 22:37:34, Aug 15, 2024</div>
+    </div>
+
+    <div id="content3" class="content">
+        <table>
+            <tr>
+                <th style="width: 14%;">Fix</th>
+                <th style="width: 23%;">Restriction</th>
+                <th style="width: 15%;">FLC (min)/ CFS</th>
+                <th style="width: 13%;">Validity</th>
+                <th style="width: 13%;">Imposed by/ at/ initial</th>
+                <th style="width: 22%;">Reason</th>
+            </tr>
+            <tr><td><b>IK-EN</b></td><td>ENTER RKRR F390 N/A</td><td></td><td>DLY 1730-2030<br>240811-241010</td><td>VHHK NTM A1376/24</td><td></td></tr>
+            <tr><td><b>SIKOU</b></td><td>S0840 S0920 APV</td><td></td><td>UFN</td><td>ZJSY-1 010326 NP</td><td></td></tr>
+            <tr><td><b>DOSUT, EPKAL</b></td><td>LSWD (50 NM SEP APV)</td><td></td><td>TIL 050300 EST</td><td>ZJSY-2 040106 NP</td><td>VVHM NTM A2181/24</td></tr>
+            <tr><td><b>EPKAL</b></td><td>F280 AVBL</td><td></td><td>UFN</td><td>ZJSY-2 040106 NP</td><td></td></tr>
+            <tr><td><b>TM-EK</b></td><td>JOINING L642</td><td>15</td><td>UFN</td><td>PLW 040110 NP/ ZGGG-3</td><td>LSWD ON L642</td></tr>
+            <tr><td><b>ASOBA</b></td><td>M772 CLOSED</td><td></td><td>TIL 040300 EST</td><td></td><td>RPHI NTM B3402/24</td></tr>
+            <tr><td><b>IKELA (DEST RKRR)</b></td><td>F270, F330, F370, AND F410 ONLY</td><td></td><td>032210-042000</td><td>ESU 031801 NP ZJSY-2</td><td>RJJJ NTM Z1560/24,<br>RCAA NTM A2514/24, VHHK NTM A1513/24</td></tr>
+            <tr><td><b>TM-EN (DEST RKRR)</b></td><td></td><td>12</td><td>032330-040410</td><td>ESU 032225 NP ZGGG-3</td><td>RCAA NTM A2514/24</td></tr>
+            <tr><td><b>IKELA, DEST VVDN</b></td><td>F340 APV (NO LOWER LVL TFC WI 15 NM)</td><td></td><td>UFN</td><td>ZJSY-2 031938 NP</td><td></td></tr>
+        </table>
+        <div class="submitted">Submitted by WA at 01:59:22, Sep 04, 2024</div>
+    </div>
+
+    <div id="content4" class="content">
+        <table>
+            <tr>
+                <th>Fix</th>
+                <th>Restriction</th>
+                <th>FLC (min)/ CFS</th>
+                <th>Validity</th>
+                <th>Imposed by/ at/ initial</th>
+                <th>Reason</th>
+            </tr>
+            <tr><td><b></b></td><td></td><td>暫時冇野</td><td>得閑再整</td><td></td><td></td></tr>
+
+        </table>
+        <div class="submitted">Submitted by DA at 09:44:27, Aug 30, 2024</div>
+    </div>
+
+    <div id="content5" class="content">
+        <table>
+            <tr>
+                <th>Fix</th>
+                <th>Restriction</th>
+                <th>FLC (min)/ CFS</th>
+                <th>Validity</th>
+                <th>Imposed by/ at/ initial</th>
+                <th>Reason</th>
+            </tr>
+            <tr><td><b>ROMEO</b></td><td>LDG VMMC A060 APV</td><td></td><td>UFN</td><td>TPL 031210 NP</td><td></td></tr>
+            <tr><td><b>SIERA, DEP ZGSZ OVF VHHK</b></td><td>F120 APV</td><td></td><td>UFN</td><td>TPL 032251 NP</td><td></td></tr>
+            <tr><td><b>SR-EK</b></td><td>ZGGG/ ZGSZ DEP</td><td>CFS</td><td>UFN</td><td>PLW 031710 NP ZGGG-1</td><td></td></tr>
+            <tr><td><b>SIERA</b></td><td>LDG VHHH FL190 N/A</td><td></td><td>031400-032200</td><td>TPL 031020 NP</td><td></td></tr>
+        </table>
+        <div class="submitted">Submitted by TADA at 23:02:01, Sep 03, 2024</div>
+    </div>
+
+    <div id="content6" class="content">
+        <table>
+            <tr>
+                <th>Fix</th>
+                <th>Restriction</th>
+                <th>FLC (min)/ CFS</th>
+                <th>Validity</th>
+                <th>Imposed by/ at/ initial</th>
+                <th>Reason</th>
+            </tr>
+            <tr><td><b>BEKOL</b></td><td>NO DEV TO EAST</td><td></td><td>021330-UFN</td><td>ZGGG-2 021303 NP</td><td>LOCAL TRAINING</td></tr>
+            <tr><td><b>TAMOT</b></td><td>20 NM APV</td><td></td><td>TIL 042300</td><td>ZGJD-1 031741 NP DPL</td><td></td></tr>
+        </table>
+        <div class="submitted">Submitted by TADA at 00:42:22, Sep 04, 2024</div>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+            // Hide all content sections
+            var contents = document.getElementsByClassName("content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+            document.getElementById(contentId).classList.add("active");
+
+            // Remove active class from all navbar links
+            var tabs = document.getElementsByClassName("tab-link");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            // Add active class to the clicked navbar link
+            event.currentTarget.classList.add("active");
+        }
+
+        showContent('content3');
+
+    </script>
+
+</body>
+</html>
