@@ -516,7 +516,7 @@ function startExercise() {
 		flightInterval = setInterval(() => {
 			cTime++;
 			showActiveFlight();
-		}, 60000);
+		}, 6000);
 	}
 
 	totalSeconds = cTime * 60;
