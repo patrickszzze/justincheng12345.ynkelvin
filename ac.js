@@ -500,10 +500,10 @@ function startExercise() {
 		genFlightTime("TAMOT", "in", cTime, 3, 7);
 		genFlightTime("IKELA", "in", cTime, 3, 10);
 		genFlightTime("SIKOU", "in", cTime, 3, 10);
-		genFlightTime("EPKAL", "out", cTime+5, 3, 5);
-		genFlightTime("BEKOL", "out", cTime+5, 3, 5);
-		genFlightTime("IKELA", "out", cTime+5, 3, 5);
-		genFlightTime("SIKOU", "out", cTime+5, 3, 5);
+		genFlightTime("EPKAL", "out", cTime+5, 3, 10);
+		genFlightTime("BEKOL", "out", cTime+5, 3, 10);
+		genFlightTime("IKELA", "out", cTime+5, 3, 10);
+		genFlightTime("SIKOU", "out", cTime+5, 3, 10);
 
 		let outflight = active_flights.length;
 
