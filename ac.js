@@ -516,7 +516,7 @@ function startExercise() {
 		flightInterval = setInterval(() => {
 			cTime++;
 			showActiveFlight();
-		}, 6000);
+		}, 60000);
 	}
 
 	totalSeconds = cTime * 60;
@@ -911,7 +911,7 @@ function checkAnswer() {
 					}
 					break;
 				case "SIKOU":
-					if (flight.dest === "ZJHK" || flight.dest === "ZJZJ") {
+					if (flight.dest === "ZJHK" || flight.dest === "ZGZJ") {
 						checkLevel(flight, "SI_out_ZJHKZGZJ", "SIKOU_out");
 					} else if (flight.dest === "ZJQH") {
 						checkLevel(flight, "SI_out_ZJQH", "SIKOU_out");
